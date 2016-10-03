@@ -1,11 +1,14 @@
 package xyz.belvi.intentmanip;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 
 import com.cocosw.bottomsheet.BottomSheet;
 
 import java.util.List;
 
+import xyz.belvi.intentmanip.IntentUtils.IntentCallBack.ResolvedIntentListener;
+import xyz.belvi.intentmanip.IntentUtils.Models.ResolveCategory;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 
 /**
@@ -15,7 +18,7 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 public class LaunchIntent {
 
 
-    private static BottomSheet.Builder builder(Activity context, List<ResolveIntent> resolveIntents,String title) {
+    private static BottomSheet.Builder builder(Activity context, List<ResolveIntent> resolveIntents, String title) {
         BottomSheet.Builder bottomSheet = new BottomSheet.Builder(context);
         bottomSheet.title(title);
         int index = 0;
@@ -27,11 +30,37 @@ public class LaunchIntent {
         return bottomSheet;
     }
 
-    public static void withButtomSheetAsList(Activity context, List<ResolveIntent> resolveIntents,String title) {
-        builder(context, resolveIntents,title).show();
+    public static void withButtomSheetAsList(Activity context, List<ResolveIntent> resolveIntents, String title, ResolvedIntentListener resolvedIntentListener) {
+        builder(context, resolveIntents, title).show();
     }
 
-    public static void withButtomSheetGrid(Activity context, List<ResolveIntent> resolveIntents,String title) {
-        builder(context, resolveIntents,title).grid().show();
+    public static void withButtomSheetGrid(Activity context, final List<ResolveIntent> resolveIntents, String title, final ResolvedIntentListener resolvedIntentListener) {
+        builder(context, resolveIntents, title).grid().listener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                resolvedIntentListener.onIntentSelected(resolveIntents.get(i));
+            }
+        }).show();
     }
+
+    public static void categorised(Activity context, List<ResolveCategory> resolveIntents, String title, ResolvedIntentListener resolvedIntentListener) {
+//        builder(context, resolveIntents, title).grid().show();
+    }
+
+    public static boolean checkByAppNAme(ResolveIntent resolveIntent, String appName) {
+        return false;
+    }
+
+    public static boolean checkByPackageName(ResolveIntent resolveIntent, String appName) {
+        return false;
+    }
+
+    public static boolean matchesAppName(ResolveIntent resolveIntent, String regEx) {
+        return false;
+    }
+
+    public static boolean matchesPackageName(ResolveIntent resolveIntent, String regEx) {
+        return false;
+    }
+
 }
