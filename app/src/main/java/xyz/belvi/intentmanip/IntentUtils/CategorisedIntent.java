@@ -14,10 +14,10 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 public class CategorisedIntent {
 
     public ResolveCategory categorized(Intent intent, String name, int order) {
-
+        return null;
     }
 
     public ResolveCategory categorized(List<ResolveIntent> resolveIntents, String name, int order) {
-
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package xyz.belvi.intentmanip;
 
+import android.content.pm.LabeledIntent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +16,7 @@ import xyz.belvi.intentmanip.IntentUtils.MergeIntent;
 import xyz.belvi.intentmanip.IntentUtils.Models.PreferenceType;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 import xyz.belvi.intentmanip.IntentUtils.PreferenceIntent;
+import xyz.belvi.intentmanip.IntentUtils.ProfileActionIntent;
 
 import static xyz.belvi.intentmanip.R.id.merge;
 
@@ -24,6 +26,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.prer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LaunchIntent.showProfileApps(MainActivity.this, new ProfileActionIntent().getAppWithProfileAction(MainActivity.this), "title", new ResolvedIntentListener<LabeledIntent>() {
+                    @Override
+                    public void onIntentSelected(LabeledIntent resolveIntent) {
+
+                    }
+                });
+            }
+        });
         findViewById(merge).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 new PreferenceIntent().preferredIntent(MainActivity.this, PreferenceType.CUSTOM_APPNAME, new ArrayList<String>(Arrays.asList(new String[]{"Photos", "Images"})),
                         resolveIntents);
                 LaunchIntent.withButtomSheetGrid(MainActivity.this, resolveIntents,
-                        "using", new ResolvedIntentListener() {
+                        "using", new ResolvedIntentListener<ResolveIntent>() {
                             @Override
                             public void onIntentSelected(ResolveIntent resolveIntent) {
 

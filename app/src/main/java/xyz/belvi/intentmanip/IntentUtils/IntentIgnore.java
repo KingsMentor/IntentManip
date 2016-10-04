@@ -13,7 +13,7 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 public class IntentIgnore {
 
     public List<ResolveIntent> IgnoreIntentWithName(Intent intent, String... appName) {
-
+        return null;
     }
 
     public void IgnoreIntentWithName(List<ResolveIntent> resolveIntents, String... packageName) {
@@ -22,7 +22,7 @@ public class IntentIgnore {
 
 
     public List<ResolveIntent> IgnoreIntentWithPackageName(Intent intent, String... appName) {
-
+        return null;
     }
 
     public void IgnoreIntentWithPackageName(List<ResolveIntent> resolveIntents, String packageName) {
@@ -30,7 +30,7 @@ public class IntentIgnore {
     }
 
     public List<ResolveIntent> IgnoreIntentsMatching(Intent intent, String regEx) {
-
+        return null;
     }
 
     public void IgnoreIntentsMatching(List<ResolveIntent> resolveIntents) {

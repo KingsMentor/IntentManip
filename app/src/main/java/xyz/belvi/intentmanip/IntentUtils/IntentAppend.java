@@ -13,7 +13,7 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 public class IntentAppend {
 
     public List<ResolveIntent> appendToIntent(Intent launchItent, Intent... customIntent) {
-
+        return null;
     }
 
     public void appendToIntent(List<ResolveIntent> launchResolveIntents, Intent... customIntent) {
