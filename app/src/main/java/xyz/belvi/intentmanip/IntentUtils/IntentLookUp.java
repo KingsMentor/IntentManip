@@ -46,36 +46,74 @@ public class IntentLookUp extends ManipUtils {
         return null;
     }
 
-    public ResolveIntent lookUpByPackageName(Intent intent, String packageName) {
+    public ResolveIntent lookUpByPackageName(Context context, Intent intent, String packageName) {
+        for (ResolveIntent resolveIntent : lookUp(context, intent)) {
+            if (getPackageName(resolveIntent.getResolveInfo()).equals(packageName))
+                return resolveIntent;
+        }
         return null;
     }
 
     public ResolveIntent lookUpByPackageName(List<ResolveIntent> resolveIntents, String packageName) {
+        for (ResolveIntent resolveIntent : resolveIntents) {
+            if (getPackageName(resolveIntent.getResolveInfo()).equals(packageName))
+                return resolveIntent;
+        }
         return null;
     }
 
-    public List<ResolveIntent> lookUpAppsByAppName(Intent intent, String appName) {
-        return null;
+    public List<ResolveIntent> lookUpAppsByAppName(Context context, Intent intent, String appName) {
+        List<ResolveIntent> resolveIntents = new ArrayList<>();
+        for (ResolveIntent resolveIntent : lookUp(context, intent)) {
+            if (getName(context, resolveIntent.getResolveInfo()).contains(appName))
+                resolveIntents.add(resolveIntent);
+        }
+        return resolveIntents;
     }
 
-    public void lookUpAppsByAppName(List<ResolveIntent> resolveIntents, String appName) {
-
+    public List<ResolveIntent> lookUpAppsByAppName(Context context, List<ResolveIntent> resolveIntents, String appName) {
+        List<ResolveIntent> resultResolveIntentList = new ArrayList<>();
+        for (ResolveIntent resolveIntent : resolveIntents) {
+            if (getName(context, resolveIntent.getResolveInfo()).contains(appName))
+                resultResolveIntentList.add(resolveIntent);
+        }
+        return resultResolveIntentList;
     }
 
-    public List<ResolveIntent> lookUpAppsByPackageName(Intent intent, String appName) {
-        return null;
+    public List<ResolveIntent> lookUpAppsByPackageName(Context context, Intent intent, String packageName) {
+        List<ResolveIntent> resolveIntents = new ArrayList<>();
+        for (ResolveIntent resolveIntent : lookUp(context, intent)) {
+            if (getPackageName(resolveIntent.getResolveInfo()).contains(packageName))
+                resolveIntents.add(resolveIntent);
+        }
+        return resolveIntents;
     }
 
-    public void lookUpAppsByPackageName(List<ResolveIntent> resolveIntents, String appName) {
-
+    public List<ResolveIntent> lookUpAppsByPackageName(List<ResolveIntent> resolveIntents, String packageName) {
+        List<ResolveIntent> resultResolveIntentList = new ArrayList<>();
+        for (ResolveIntent resolveIntent : resolveIntents) {
+            if (getPackageName(resolveIntent.getResolveInfo()).contains(packageName))
+                resultResolveIntentList.add(resolveIntent);
+        }
+        return resultResolveIntentList;
     }
 
-    public List<ResolveIntent> lookUpAppsByRegEx(Intent intent, String appName) {
-        return null;
+    public List<ResolveIntent> lookUpAppsByRegEx(Context context, Intent intent, String regEx) {
+        List<ResolveIntent> resolveIntents = new ArrayList<>();
+        for (ResolveIntent resolveIntent : lookUp(context, intent)) {
+            if (getPackageName(resolveIntent.getResolveInfo()).matches(regEx))
+                resolveIntents.add(resolveIntent);
+        }
+        return resolveIntents;
     }
 
-    public void lookUpAppsByRegEx(List<ResolveIntent> resolveIntents, String appName) {
-
+    public List<ResolveIntent> lookUpAppsByRegEx(List<ResolveIntent> resolveIntents, String regEx) {
+        List<ResolveIntent> resultResolveIntentList = new ArrayList<>();
+        for (ResolveIntent resolveIntent : resolveIntents) {
+            if (getPackageName(resolveIntent.getResolveInfo()).matches(regEx))
+                resultResolveIntentList.add(resolveIntent);
+        }
+        return resultResolveIntentList;
     }
 
 }
