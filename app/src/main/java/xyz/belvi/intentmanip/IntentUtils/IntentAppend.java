@@ -10,7 +10,7 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
  * Created by zone2 on 10/3/16.
  */
 
-public class IntentAppend {
+public class IntentAppend extends ManipUtils{
 
     public List<ResolveIntent> appendToIntent(Intent launchItent, Intent... customIntent) {
         return null;

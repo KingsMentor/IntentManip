@@ -21,8 +21,10 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 
 public class PreferenceIntent extends ManipUtils {
 
+    Context mContext;
+
     public PreferenceIntent(Context context) {
-        super(context);
+        mContext = context;
     }
 
     public List<ResolveIntent> preferredIntent(Context context, Intent intents) {
@@ -115,15 +117,15 @@ public class PreferenceIntent extends ManipUtils {
         public int compare(ResolveIntent resolveIntent, ResolveIntent t1) {
             switch (preferenceType) {
                 case ASCENDING:
-                    return getName(resolveIntent.getResolveInfo()).compareTo(getName(t1.getResolveInfo()));
+                    return getName(mContext, resolveIntent.getResolveInfo()).compareTo(getName(mContext, t1.getResolveInfo()));
                 case DECENDING:
-                    return getName(t1.getResolveInfo()).compareTo(getName(resolveIntent.getResolveInfo()));
+                    return getName(mContext, t1.getResolveInfo()).compareTo(getName(mContext, resolveIntent.getResolveInfo()));
                 case CUSTOM_APPNAME:
-                    return compare(getName(resolveIntent.getResolveInfo()), getName(t1.getResolveInfo()));
+                    return compare(getName(mContext, resolveIntent.getResolveInfo()), getName(mContext, t1.getResolveInfo()));
                 case CUSTOM_PACKAGENAME:
                     return compare(getPackageName(resolveIntent.getResolveInfo()), getPackageName(t1.getResolveInfo()));
                 case CUSTOM_REGEX_APPNAME:
-                    return compareRegEx(getName(resolveIntent.getResolveInfo()), getName(t1.getResolveInfo()));
+                    return compareRegEx(getName(mContext, resolveIntent.getResolveInfo()), getName(mContext, t1.getResolveInfo()));
                 case CUSTOM_REGEX_PACKAGE_NAME:
                     return compareRegEx(getPackageName(resolveIntent.getResolveInfo()), getPackageName(t1.getResolveInfo()));
 
