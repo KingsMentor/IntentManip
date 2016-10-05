@@ -1,14 +1,12 @@
 package xyz.belvi.intentmanip.IntentUtils;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorDescription;
 import android.content.Context;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
-import android.content.pm.ProviderInfo;
-import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -20,75 +18,62 @@ import java.util.List;
  * Created by zone2 on 10/3/16.
  */
 
-public class ProfileActionIntent {
+public class AccountIntent {
 
-    public List<Apps> getAppWithProfileAction(Context context) {
 
-        return listInviteApps(context);
+    public List<Apps> getAppsWithAccounts(Context context) {
+
+        return listAccountApps(context);
     }
 
-    private ArrayList<String> getAllAccountTypeInContact(Context context) {
-        Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null, null, null, ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC");
-        ArrayList<String> contactAccountType = new ArrayList<>();
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                String type = (cursor.getString(cursor.getColumnIndex(ContactsContract.RawContacts.ACCOUNT_TYPE)));
-                if (!type.equalsIgnoreCase("Local Phone Account")) {
-                    if (!contactAccountType.contains(type))
-                        contactAccountType.add(type);
-                }
-            }
-            cursor.close();
-        }
-        return contactAccountType;
-    }
 
-    private ArrayList<Inclusion> getAccountAuth(Context context) {
+    private ArrayList<Inclusion> getAccountAuth(ArrayList<String> contactAccount, Context context) {
         ArrayList<Inclusion> inclusions = new ArrayList<>();
         AccountManager accountManager = AccountManager.get(context);
 
+        for (String acctType : contactAccount) {
+            Account[] accounts = AccountManager.get(context).getAccountsByType(acctType);
+            for (Account account : accounts) {
+                String appName = account.type;
+                Log.e("apn", appName);
+            }
+        }
         for (AuthenticatorDescription account : accountManager.getAuthenticatorTypes()) {
+
 
             inclusions.add(new Inclusion(account, false));
 
         }
+
+
         return inclusions;
     }
 
-    private ArrayList<Apps> listInviteApps(Context context) {
-        HashMap<String, LabeledIntent> targetHashMap = new HashMap<>();
-        ArrayList<String> contactAccount = getAllAccountTypeInContact(context);
-        ArrayList<Inclusion> inclusions = getAccountAuth(context);
-
+    private ArrayList<Apps> listAccountApps(Context context) {
+        ArrayList<Inclusion> inclusions = getAccountAuth(new ArrayList<String>(), context);
         ArrayList<String> getAppsPackageName = new ArrayList<>();
         for (Inclusion inclusion : inclusions) {
-            boolean isMember = contactAccount.contains(inclusion.getAuthenticatorDescription().packageName);
-            inclusion.setShouldInclude(isMember);
-
-            Log.e("package", inclusion.authenticatorDescription.packageName);
-            if (isMember) {
-                getAppsPackageName.add(inclusion.getAuthenticatorDescription().packageName);
-            }
+            getAppsPackageName.add(inclusion.getAuthenticatorDescription().packageName);
         }
-
 
         Collections.sort(getAppsPackageName);
 
+        return getAppsFromPackageDetails(context, getAppsPackageName);
+    }
+
+
+    private ArrayList<Apps> getAppsFromPackageDetails(Context context, ArrayList<String> appPackageNames) {
+
+        HashMap<String, LabeledIntent> targetHashMap = new HashMap<>();
         ArrayList<Apps> appsArrayList = new ArrayList<>();
         PackageManager packageManager = context.getPackageManager();
         int count = 0;
-        for (String packageName : getAppsPackageName) {
+        for (String packageName : appPackageNames) {
             Apps apps = new Apps();
             apps.setId(count);
             apps.setTargetActivity(targetHashMap.get(packageName));
             apps.setPackageName(packageName);
             try {
-
-                List<ProviderInfo> providerInfos = packageManager.queryContentProviders(ContactsContract.RawContacts.CONTENT_URI.toString(), 0, 0);
-                for (ProviderInfo providerInfo : providerInfos) {
-                    Log.e("f",  "found");
-                }
                 apps.setDrawable(packageManager.getApplicationIcon(packageName));
                 CharSequence name = packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0));
                 apps.setName(name.toString());
@@ -98,13 +83,11 @@ public class ProfileActionIntent {
             appsArrayList.add(apps);
             count++;
 
-
         }
 
         Log.e("", "");
         return appsArrayList;
     }
-
 
     private class Inclusion {
         AuthenticatorDescription authenticatorDescription;

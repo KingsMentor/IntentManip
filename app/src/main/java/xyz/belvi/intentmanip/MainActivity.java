@@ -16,7 +16,7 @@ import xyz.belvi.intentmanip.IntentUtils.MergeIntent;
 import xyz.belvi.intentmanip.IntentUtils.Models.PreferenceType;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 import xyz.belvi.intentmanip.IntentUtils.PreferenceIntent;
-import xyz.belvi.intentmanip.IntentUtils.ProfileActionIntent;
+import xyz.belvi.intentmanip.IntentUtils.AccountIntent;
 
 import static xyz.belvi.intentmanip.R.id.merge;
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.prer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LaunchIntent.showProfileApps(MainActivity.this, new ProfileActionIntent().getAppWithProfileAction(MainActivity.this), "title", new ResolvedIntentListener<LabeledIntent>() {
+                LaunchIntent.showProfileApps(MainActivity.this, new AccountIntent().getAppsWithAccounts(MainActivity.this), "title", new ResolvedIntentListener<LabeledIntent>() {
                     @Override
                     public void onIntentSelected(LabeledIntent resolveIntent) {
 

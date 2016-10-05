@@ -10,7 +10,7 @@ import java.util.List;
 import xyz.belvi.intentmanip.IntentUtils.IntentCallBack.ResolvedIntentListener;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveCategory;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
-import xyz.belvi.intentmanip.IntentUtils.ProfileActionIntent;
+import xyz.belvi.intentmanip.IntentUtils.AccountIntent;
 
 /**
  * Created by zone2 on 10/2/16.
@@ -31,10 +31,10 @@ public class LaunchIntent {
         return bottomSheet;
     }
 
-    private static BottomSheet.Builder appBuilder(Activity context, List<ProfileActionIntent.Apps> apps, String title) {
+    private static BottomSheet.Builder appBuilder(Activity context, List<AccountIntent.Apps> apps, String title) {
         BottomSheet.Builder bottomSheet = new BottomSheet.Builder(context);
         bottomSheet.title(title);
-        for (ProfileActionIntent.Apps app : apps) {
+        for (AccountIntent.Apps app : apps) {
             bottomSheet.sheet(app.getId(), app.getDrawable(), app.getName());
         }
 
@@ -54,7 +54,7 @@ public class LaunchIntent {
         }).grid().show();
     }
 
-    public static void showProfileApps(Activity context, final List<ProfileActionIntent.Apps> apps, String title, final ResolvedIntentListener resolvedIntentListener) {
+    public static void showProfileApps(Activity context, final List<AccountIntent.Apps> apps, String title, final ResolvedIntentListener resolvedIntentListener) {
         appBuilder(context, apps, title).grid().listener(new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

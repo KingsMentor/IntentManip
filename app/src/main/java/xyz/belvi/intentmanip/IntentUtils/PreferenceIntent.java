@@ -19,7 +19,11 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
  * Created by zone2 on 10/3/16.
  */
 
-public class PreferenceIntent {
+public class PreferenceIntent extends ManipUtils {
+
+    public PreferenceIntent(Context context) {
+        super(context);
+    }
 
     public List<ResolveIntent> preferredIntent(Context context, Intent intents) {
 
@@ -154,13 +158,7 @@ public class PreferenceIntent {
             return resolveIntentName.compareTo(t1Name);
         }
 
-        private String getName(ResolveInfo resolveInfo) {
-            return String.valueOf(resolveInfo.loadLabel(mContext.getPackageManager()));
-        }
 
-        private String getPackageName(ResolveInfo resolveInfo) {
-            return String.valueOf(resolveInfo.activityInfo.packageName);
-        }
     }
 
 }
