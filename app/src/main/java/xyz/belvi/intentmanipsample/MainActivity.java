@@ -30,12 +30,11 @@ import static xyz.belvi.intentmanip.IntentUtils.MergeIntent.mergeIntents;
 public class MainActivity extends AppCompatActivity {
 
     private final int MERGE = 0;
-    private final int ACCOUNT = 1;
-    private final int CATEGORISE = 2;
-    private final int APPENDING = 3;
-    private final int IGNORE = 4;
-    private final int LOOKUP = 5;
-    private final int PREF = 6;
+    private final int CATEGORISE = 1;
+    private final int APPENDING = 2;
+    private final int IGNORE = 3;
+    private final int LOOKUP = 4;
+    private final int PREF = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case APPENDING:
                         appendIntent();
+                        break;
                 }
             }
         });
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void appendIntent() {
         PreparedIntent preparedIntent = new PreparedIntent(new Intent(this, Sample.class), R.string.sample, R.mipmap.ic_launcher);
-        List<ResolveIntent> resolveIntentList = IntentAppend.appendCustomIntent(this,MediaIntents.newSelectPictureIntent(),preparedIntent);
+        List<ResolveIntent> resolveIntentList = IntentAppend.appendCustomIntent(this, MediaIntents.newSelectPictureIntent(), preparedIntent);
         LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener<ResolveIntent>() {
             @Override
             public void onIntentSelected(ResolveIntent resolveIntent) {
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void categorised() {
         ResolveCategory pixResolveCategory = CategorisedIntent.categorized(this, MediaIntents.newSelectPictureIntent(), "picture", 1);

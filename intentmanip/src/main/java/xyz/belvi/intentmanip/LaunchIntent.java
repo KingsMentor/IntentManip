@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import xyz.belvi.intentmanip.IntentUtils.AccountIntent;
 import xyz.belvi.intentmanip.IntentUtils.IntentCallBack.ResolvedIntentListener;
 import xyz.belvi.intentmanip.IntentUtils.ManipUtils;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveCategory;
@@ -43,15 +42,6 @@ public class LaunchIntent {
 
     }
 
-    private static BottomSheet.Builder appBuilder(Activity context, List<AccountIntent.Apps> apps, String title) {
-        BottomSheet.Builder bottomSheet = new BottomSheet.Builder(context);
-        bottomSheet.title(title);
-        for (AccountIntent.Apps app : apps) {
-            bottomSheet.sheet(app.getId(), app.getDrawable(), app.getName());
-        }
-
-        return bottomSheet;
-    }
 
     public static void withButtomSheetAsList(Activity context, final List<ResolveIntent> resolveIntents, String title, final ResolvedIntentListener resolvedIntentListener) {
         builder(context, resolveIntents, title).listener(new DialogInterface.OnClickListener() {
@@ -71,14 +61,6 @@ public class LaunchIntent {
         }).grid().show();
     }
 
-    public static void showProfileApps(Activity context, final List<AccountIntent.Apps> apps, String title, final ResolvedIntentListener resolvedIntentListener) {
-        appBuilder(context, apps, title).grid().listener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-//                resolvedIntentListener.onIntentSelected(resolveIntents.get(i));
-            }
-        }).show();
-    }
 
     public static void categorised(Activity context, final List<ResolveCategory> resolveCategories, String title, final ResolvedIntentListener<ResolveIntent> resolvedIntentListener) {
         BottomSheet sheet = categoryBuilder(context, "Complete action using").listener(new MenuItem.OnMenuItemClickListener() {

@@ -53,4 +53,5 @@ public class ManipUtils {
         resolveIntent.getIntent().setComponent(new ComponentName(resolveIntent.getResolveInfo().activityInfo.packageName, resolveIntent.getResolveInfo().activityInfo.name));
         return resolveIntent.getIntent();
     }
+
 }

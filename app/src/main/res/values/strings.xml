@@ -4,7 +4,6 @@
 
     <string-array name="manip_list">
         <item>Merge Sample</item>
-        <item>Account Intent Sample</item>
         <item>Categorised Intent</item>
         <item>Appending Intent</item>
         <item>Igonore Intent</item>
