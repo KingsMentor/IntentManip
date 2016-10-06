@@ -25,10 +25,13 @@ public class IntentIgnore extends ManipUtils {
     }
 
     public static void IgnoreIntentWithName(Context context, List<ResolveIntent> resolveIntents, ArrayList<String> skipList) {
+        List<ResolveIntent> resultingIntent = new ArrayList<>();
         for (ResolveIntent resolveIntent : resolveIntents) {
-            if (skipList.contains(getName(context, resolveIntent.getResolveInfo())))
-                resolveIntents.remove(resolveIntent);
+            if (!skipList.contains(getName(context, resolveIntent.getResolveInfo())))
+                resultingIntent.add(resolveIntent);
         }
+        resolveIntents.clear();
+        resolveIntents.addAll(resultingIntent);
 
     }
 
@@ -43,10 +46,13 @@ public class IntentIgnore extends ManipUtils {
     }
 
     public static void IgnoreIntentWithPackageName(List<ResolveIntent> resolveIntents, ArrayList<String> skipList) {
+        List<ResolveIntent> resultingIntent = new ArrayList<>();
         for (ResolveIntent resolveIntent : resolveIntents) {
-            if (skipList.contains(getPackageName(resolveIntent.getResolveInfo())))
-                resolveIntents.remove(resolveIntent);
+            if (!skipList.contains(getPackageName(resolveIntent.getResolveInfo())))
+                resultingIntent.add(resolveIntent);
         }
+        resolveIntents.clear();
+        resolveIntents.addAll(resultingIntent);
 
     }
 
@@ -60,10 +66,13 @@ public class IntentIgnore extends ManipUtils {
     }
 
     public static void IgnoreIntentsWithAppNameMatching(Context context, List<ResolveIntent> resolveIntents, String regEx) {
+        List<ResolveIntent> resultingIntent = new ArrayList<>();
         for (ResolveIntent resolveIntent : resolveIntents) {
-            if (getName(context, resolveIntent.getResolveInfo()).matches(regEx))
-                resolveIntents.remove(resolveIntent);
+            if (!getName(context, resolveIntent.getResolveInfo()).matches(regEx))
+                resultingIntent.add(resolveIntent);
         }
+        resolveIntents.clear();
+        resolveIntents.addAll(resultingIntent);
     }
 
     public static List<ResolveIntent> IgnoreIntentsWithPackageNameMatching(Context context, Intent intent, String regEx) {
@@ -76,9 +85,14 @@ public class IntentIgnore extends ManipUtils {
     }
 
     public static void IgnoreIntentsWithPacjageNameMatching(List<ResolveIntent> resolveIntents, String regEx) {
+        List<ResolveIntent> resultingIntent = new ArrayList<>();
+
         for (ResolveIntent resolveIntent : resolveIntents) {
-            if (getPackageName(resolveIntent.getResolveInfo()).matches(regEx))
-                resolveIntents.remove(resolveIntent);
+            if (!getPackageName(resolveIntent.getResolveInfo()).matches(regEx))
+                resultingIntent.add(resolveIntent);
         }
+        resolveIntents.clear();
+        resolveIntents.addAll(resultingIntent);
+
     }
 }
