@@ -16,7 +16,7 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 
 public class MergeIntent {
 
-    public List<ResolveIntent> mergeIntents(Context context, Intent... intents) {
+    public static List<ResolveIntent> mergeIntents(Context context, Intent... intents) {
 
         PackageManager packageManager = context.getPackageManager();
 

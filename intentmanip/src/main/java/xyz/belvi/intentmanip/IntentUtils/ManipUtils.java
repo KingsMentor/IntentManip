@@ -18,7 +18,7 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 public class ManipUtils {
 
 
-    protected List<ResolveIntent> lookUp(Context context, Intent intent) {
+    protected static List<ResolveIntent> lookUp(Context context, Intent intent) {
         List<ResolveIntent> resolveIntents = new ArrayList<>();
         PackageManager packageManager = context.getPackageManager();
         List<ResolveInfo> listCam = packageManager.queryIntentActivities(intent, 0);

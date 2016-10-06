@@ -14,7 +14,7 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 
 public class IntentAppend extends ManipUtils {
 
-    public List<ResolveIntent> appendCustomIntent(Context context, Intent launchItent, PreparedIntent... customIntent) {
+    public static List<ResolveIntent> appendCustomIntent(Context context, Intent launchItent, PreparedIntent... customIntent) {
         List<ResolveIntent> resolveIntents = lookUp(context, launchItent);
         for (PreparedIntent preparedIntent : customIntent) {
             for (ResolveIntent resolveIntent : lookUp(context, preparedIntent.getIntent())) {
@@ -26,7 +26,7 @@ public class IntentAppend extends ManipUtils {
         return resolveIntents;
     }
 
-    public void appendCustomIntent(Context context, List<ResolveIntent> launchResolveIntents, PreparedIntent... customIntent) {
+    public static void appendCustomIntent(Context context, List<ResolveIntent> launchResolveIntents, PreparedIntent... customIntent) {
         for (PreparedIntent preparedIntent : customIntent) {
             for (ResolveIntent resolveIntent : lookUp(context, preparedIntent.getIntent())) {
                 resolveIntent.getResolveInfo().labelRes = preparedIntent.getNameRes();
@@ -36,7 +36,7 @@ public class IntentAppend extends ManipUtils {
         }
     }
 
-    public List<ResolveIntent> appendToIntent(Context context, Intent launchItent, Intent... customIntent) {
+    public static List<ResolveIntent> appendToIntent(Context context, Intent launchItent, Intent... customIntent) {
         List<ResolveIntent> resolveIntents = lookUp(context, launchItent);
         for (Intent intent : customIntent) {
             resolveIntents.addAll(lookUp(context, intent));
@@ -44,7 +44,7 @@ public class IntentAppend extends ManipUtils {
         return resolveIntents;
     }
 
-    public void appendToIntent(Context context, List<ResolveIntent> launchResolveIntents, Intent... customIntent) {
+    public static void appendToIntent(Context context, List<ResolveIntent> launchResolveIntents, Intent... customIntent) {
         for (Intent intent : customIntent) {
             launchResolveIntents.addAll(lookUp(context, intent));
         }

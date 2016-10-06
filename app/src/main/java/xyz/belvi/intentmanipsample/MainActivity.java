@@ -1,5 +1,6 @@
 package xyz.belvi.intentmanipsample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,12 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.belvi.intentmanip.IntentUtils.CategorisedIntent;
+import xyz.belvi.intentmanip.IntentUtils.IntentAppend;
 import xyz.belvi.intentmanip.IntentUtils.IntentCallBack.ResolvedIntentListener;
 import xyz.belvi.intentmanip.IntentUtils.ManipUtils;
 import xyz.belvi.intentmanip.IntentUtils.MergeIntent;
+import xyz.belvi.intentmanip.IntentUtils.Models.PreparedIntent;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveCategory;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 import xyz.belvi.intentmanip.LaunchIntent;
+
+import static xyz.belvi.intentmanip.IntentUtils.MergeIntent.mergeIntents;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case CATEGORISE:
                         categorised();
+                        break;
+                    case APPENDING:
+                        appendIntent();
                 }
             }
         });
@@ -54,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void runMerge() {
-        List<ResolveIntent> resolveIntentListView = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
-        LaunchIntent.withButtomSheetAsList(this, resolveIntentListView, "launch using", new ResolvedIntentListener() {
+        List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
             @Override
             public void onIntentSelected(Object resolveIntent) {
 
@@ -64,19 +72,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void appendIntent() {
-        List<ResolveIntent> resolveIntentListView = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
-        LaunchIntent.withButtomSheetAsList(this, resolveIntentListView, "launch using", new ResolvedIntentListener() {
+        PreparedIntent preparedIntent = new PreparedIntent(new Intent(this, Sample.class), R.string.sample, R.mipmap.ic_launcher);
+        List<ResolveIntent> resolveIntentList = IntentAppend.appendCustomIntent(this,MediaIntents.newSelectPictureIntent(),preparedIntent);
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener<ResolveIntent>() {
             @Override
-            public void onIntentSelected(Object resolveIntent) {
-
+            public void onIntentSelected(ResolveIntent resolveIntent) {
+                startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
             }
         });
     }
 
     private void categorised() {
-        ResolveCategory pixResolveCategory = new CategorisedIntent().categorized(this, MediaIntents.newSelectPictureIntent(), "picture", 1);
+        ResolveCategory pixResolveCategory = CategorisedIntent.categorized(this, MediaIntents.newSelectPictureIntent(), "picture", 1);
         List<ResolveIntent> merge = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
-        ResolveCategory mergeResolveCategory = new CategorisedIntent().categorized(merge, "Geo and Media", 2);
+        ResolveCategory mergeResolveCategory = CategorisedIntent.categorized(merge, "Geo and Media", 2);
         List<ResolveCategory> resolveCategories = new ArrayList<>();
         resolveCategories.add(pixResolveCategory);
         resolveCategories.add(mergeResolveCategory);

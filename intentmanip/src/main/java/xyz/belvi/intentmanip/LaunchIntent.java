@@ -53,8 +53,13 @@ public class LaunchIntent {
         return bottomSheet;
     }
 
-    public static void withButtomSheetAsList(Activity context, List<ResolveIntent> resolveIntents, String title, ResolvedIntentListener resolvedIntentListener) {
-        builder(context, resolveIntents, title).show();
+    public static void withButtomSheetAsList(Activity context, final List<ResolveIntent> resolveIntents, String title, final ResolvedIntentListener resolvedIntentListener) {
+        builder(context, resolveIntents, title).listener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                resolvedIntentListener.onIntentSelected(resolveIntents.get(i));
+            }
+        }).show();
     }
 
     public static void withButtomSheetGrid(Activity context, final List<ResolveIntent> resolveIntents, String title, final ResolvedIntentListener resolvedIntentListener) {

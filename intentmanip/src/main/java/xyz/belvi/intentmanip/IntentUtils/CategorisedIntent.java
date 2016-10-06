@@ -14,13 +14,13 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 
 public class CategorisedIntent extends ManipUtils {
 
-    public ResolveCategory categorized(Context context, Intent intent, String name, int order) {
+    public static ResolveCategory categorized(Context context, Intent intent, String name, int order) {
         List<ResolveIntent> resolveIntents = lookUp(context, intent);
 
         return new ResolveCategory(resolveIntents, name, order);
     }
 
-    public ResolveCategory categorized(List<ResolveIntent> resolveIntents, String name, int order) {
+    public static ResolveCategory categorized(List<ResolveIntent> resolveIntents, String name, int order) {
         return new ResolveCategory(resolveIntents, name, order);
     }
 }
