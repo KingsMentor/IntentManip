@@ -27,12 +27,12 @@ public class PreferenceIntent extends ManipUtils {
         mContext = context;
     }
 
-    public List<ResolveIntent> preferredIntent(Context context, Intent intents) {
+    public static List<ResolveIntent> preferredIntent(Context context, Intent intents) {
 
         return preferredIntent(context, PreferenceType.ASCENDING, intents);
     }
 
-    private List<ResolveIntent> getResolveIntents(Context context, Intent intent) {
+    private static List<ResolveIntent> getResolveIntents(Context context, Intent intent) {
         List<ResolveIntent> resolveIntents = new ArrayList<>();
         PackageManager packageManager = context.getPackageManager();
         List<ResolveInfo> listCam = packageManager.queryIntentActivities(intent, 0);
@@ -45,7 +45,7 @@ public class PreferenceIntent extends ManipUtils {
         return resolveIntents;
     }
 
-    public List<ResolveIntent> preferredIntent(Context context, PreferenceType preferenceType, Intent intent) {
+    public static List<ResolveIntent> preferredIntent(Context context, PreferenceType preferenceType, Intent intent) {
 
         List<ResolveIntent> resolveIntents = getResolveIntents(context, intent);
         Collections.sort(resolveIntents, new IntentComparator(context, preferenceType));
@@ -53,43 +53,43 @@ public class PreferenceIntent extends ManipUtils {
 
     }
 
-    public List<ResolveIntent> preferredIntent(Context context, PreferenceType preferenceType, ArrayList<String> orderingPackageName, Intent intent) {
+    public static List<ResolveIntent> preferredIntent(Context context, PreferenceType preferenceType, ArrayList<String> orderingPackageName, Intent intent) {
         List<ResolveIntent> resolveIntents = getResolveIntents(context, intent);
         Collections.sort(resolveIntents, new IntentComparator(context, preferenceType, orderingPackageName));
         return resolveIntents;
 
     }
 
-    public List<ResolveIntent> preferredIntent(Context context, PreferenceType preferenceType, String regEx, Intent intent) {
+    public static List<ResolveIntent> preferredIntent(Context context, PreferenceType preferenceType, String regEx, Intent intent) {
         List<ResolveIntent> resolveIntents = getResolveIntents(context, intent);
         Collections.sort(resolveIntents, new IntentComparator(context, preferenceType, regEx));
         return resolveIntents;
 
     }
 
-    public void preferredIntent(Context context, ArrayList<ResolveIntent> resolveIntents) {
+    public static void preferredIntent(Context context, List<ResolveIntent> resolveIntents) {
         preferredIntent(context, PreferenceType.ASCENDING, resolveIntents);
 
     }
 
-    public void preferredIntent(Context context, PreferenceType preferenceType, ArrayList<ResolveIntent> resolveIntents) {
+    public static void preferredIntent(Context context, PreferenceType preferenceType, List<ResolveIntent> resolveIntents) {
 
         Collections.sort(resolveIntents, new IntentComparator(context, preferenceType));
 
     }
 
-    public void preferredIntent(Context context, PreferenceType preferenceType, ArrayList<String> orderingPackageName, List<ResolveIntent> resolveIntents) {
+    public static void preferredIntent(Context context, PreferenceType preferenceType, ArrayList<String> orderingPackageName, List<ResolveIntent> resolveIntents) {
         Collections.sort(resolveIntents, new IntentComparator(context, preferenceType, orderingPackageName));
 
     }
 
-    public void preferredIntent(Context context, PreferenceType preferenceType, String regEx, List<ResolveIntent> resolveIntents) {
+    public static void preferredIntent(Context context, PreferenceType preferenceType, String regEx, List<ResolveIntent> resolveIntents) {
         Collections.sort(resolveIntents, new IntentComparator(context, preferenceType, regEx));
 
     }
 
 
-    public class IntentComparator implements Comparator<ResolveIntent> {
+    public static class IntentComparator implements Comparator<ResolveIntent> {
         private PreferenceType preferenceType;
         private ArrayList<String> preferencesList;
         private Context mContext;

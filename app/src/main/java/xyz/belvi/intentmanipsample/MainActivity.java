@@ -22,9 +22,11 @@ import xyz.belvi.intentmanip.IntentUtils.IntentIgnore;
 import xyz.belvi.intentmanip.IntentUtils.IntentLookUp;
 import xyz.belvi.intentmanip.IntentUtils.ManipUtils;
 import xyz.belvi.intentmanip.IntentUtils.MergeIntent;
+import xyz.belvi.intentmanip.IntentUtils.Models.PreferenceType;
 import xyz.belvi.intentmanip.IntentUtils.Models.PreparedIntent;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveCategory;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
+import xyz.belvi.intentmanip.IntentUtils.PreferenceIntent;
 import xyz.belvi.intentmanip.LaunchIntent;
 
 import static xyz.belvi.intentmanip.IntentUtils.MergeIntent.mergeIntents;
@@ -63,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case LOOKUP:
                         lookUp();
+                        break;
+                    case PREF:
+                        arrangeInPreference();
 
                 }
             }
@@ -84,6 +89,17 @@ public class MainActivity extends AppCompatActivity {
     private void lookUp() {
         List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
         IntentLookUp.lookUpAppsByAppName(this, resolveIntentList, "Maps");
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
+            @Override
+            public void onIntentSelected(Object resolveIntent) {
+
+            }
+        });
+    }
+
+    private void arrangeInPreference() {
+        List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        PreferenceIntent.preferredIntent(this, PreferenceType.CUSTOM_APPNAME, new ArrayList<String>(Arrays.asList(new String[]{"Maps"})), resolveIntentList);
         LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
             @Override
             public void onIntentSelected(Object resolveIntent) {
