@@ -123,9 +123,9 @@ public class LaunchIntent {
         @Override
         public int compare(ResolveCategory resolveCategory, ResolveCategory t1) {
             if (t1.getOrderId() > resolveCategory.getOrderId()) {
-                return 1;
-            } else if (t1.getOrderId() > resolveCategory.getOrderId()) {
                 return -1;
+            } else if (t1.getOrderId() > resolveCategory.getOrderId()) {
+                return 1;
             }
             return 0;
         }
