@@ -2,6 +2,8 @@ package xyz.belvi.intentmanipsample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -22,5 +24,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ListView listView = (ListView) findViewById(R.id.intent_list);
         listView.setAdapter(ArrayAdapter.createFromResource(this, R.array.manip_list, android.R.layout.simple_list_item_1));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                switch (position) {
+                    case MERGE:
+                        runMerge();
+
+                }
+            }
+        });
+    }
+
+
+    private void runMerge() {
+
     }
 }
