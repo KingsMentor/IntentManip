@@ -1,6 +1,5 @@
 package xyz.belvi.intentmanip.IntentUtils;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,8 +24,6 @@ public class MergeIntent {
         for (Intent intent : intents) {
             List<ResolveInfo> listCam = packageManager.queryIntentActivities(intent, 0);
             for (ResolveInfo res : listCam) {
-                final Intent finalIntent = new Intent(intent);
-                finalIntent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
                 resolveIntents.add(new ResolveIntent(res, intent));
             }
         }

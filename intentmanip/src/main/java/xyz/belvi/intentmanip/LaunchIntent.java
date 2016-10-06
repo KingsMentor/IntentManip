@@ -3,6 +3,7 @@ package xyz.belvi.intentmanip;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.cocosw.bottomsheet.BottomSheet;
 
@@ -74,9 +75,15 @@ public class LaunchIntent {
         }).show();
     }
 
-    public static void categorised(Activity context, List<ResolveCategory> resolveCategories, String title, ResolvedIntentListener resolvedIntentListener) {
-//        builder(context, resolveIntents, title).grid().show();
-        BottomSheet sheet = categoryBuilder(context, "Complete action using").build();
+    public static void categorised(Activity context, final List<ResolveCategory> resolveCategories, String title, final ResolvedIntentListener<ResolveIntent> resolvedIntentListener) {
+        BottomSheet sheet = categoryBuilder(context, "Complete action using").listener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                ResolveIntent resolveIntent = findResolveIntentFromIndex(resolveCategories, menuItem.getItemId());
+                resolvedIntentListener.onIntentSelected(resolveIntent);
+                return false;
+            }
+        }).build();
         Menu menu = sheet.getMenu();
         Collections.sort(resolveCategories, new IntentCategoryOrdering());
         int id = 0;
@@ -84,10 +91,10 @@ public class LaunchIntent {
             int index = 0;
             for (ResolveIntent resolveIntent : resolveCategory.getResolveIntents()) {
                 if (index == 0) {
-                    menu.add(resolveCategory.getGrpId(), fakeID(id), resolveCategory.getOrderId(), resolveCategory.getCategoryName());
+                    menu.add(0, fakeID(id), resolveCategory.getOrderId(), resolveCategory.getCategoryName());
                     menu.findItem(fakeID(id)).setEnabled(false);
                 }
-                menu.add(resolveCategory.getGrpId(), id, resolveCategory.getOrderId(), new ManipUtils().getName(context, resolveIntent.getResolveInfo()));
+                menu.add(0, id, resolveCategory.getOrderId(), new ManipUtils().getName(context, resolveIntent.getResolveInfo()));
                 menu.findItem(id).setIcon(resolveIntent.getResolveInfo().loadIcon(context.getPackageManager()));
                 index++;
                 id++;
@@ -95,6 +102,21 @@ public class LaunchIntent {
 
         }
         sheet.show();
+
+
+    }
+
+    private static ResolveIntent findResolveIntentFromIndex(List<ResolveCategory> resolveCategories, int index) {
+        int currentIndex = index;
+        for (ResolveCategory resolveCategory : resolveCategories) {
+            int size = resolveCategory.getResolveIntents().size();
+            if (currentIndex < size) {
+                return resolveCategory.getResolveIntents().get(currentIndex);
+            } else {
+                currentIndex -= size;
+            }
+        }
+        return null;
     }
 
     private static int fakeID(int index) {

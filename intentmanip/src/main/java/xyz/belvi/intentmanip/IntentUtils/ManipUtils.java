@@ -1,5 +1,6 @@
 package xyz.belvi.intentmanip.IntentUtils;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -45,5 +46,11 @@ public class ManipUtils {
         }
 
         return resolveIntents;
+    }
+
+    public static Intent getLaunchableIntent(ResolveIntent resolveIntent) {
+
+        resolveIntent.getIntent().setComponent(new ComponentName(resolveIntent.getResolveInfo().activityInfo.packageName, resolveIntent.getResolveInfo().activityInfo.name));
+        return resolveIntent.getIntent();
     }
 }

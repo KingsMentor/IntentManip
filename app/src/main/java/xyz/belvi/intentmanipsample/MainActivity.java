@@ -15,6 +15,7 @@ import java.util.List;
 
 import xyz.belvi.intentmanip.IntentUtils.CategorisedIntent;
 import xyz.belvi.intentmanip.IntentUtils.IntentCallBack.ResolvedIntentListener;
+import xyz.belvi.intentmanip.IntentUtils.ManipUtils;
 import xyz.belvi.intentmanip.IntentUtils.MergeIntent;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveCategory;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
@@ -62,17 +63,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void categorised() {
-        ResolveCategory pixResolveCategory = new CategorisedIntent().categorized(this, MediaIntents.newSelectPictureIntent(), "picture", 1, 1);
-        List<ResolveIntent> merge = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
-        ResolveCategory mergeResolveCategory = new CategorisedIntent().categorized(merge, "Geo and Media", 2, 2);
-        List<ResolveCategory> resolveCategories = new ArrayList<>();
-        resolveCategories.add(pixResolveCategory);
-        resolveCategories.add(mergeResolveCategory);
-        LaunchIntent.categorised(this, resolveCategories, "Share With", new ResolvedIntentListener() {
+    private void appendIntent() {
+        List<ResolveIntent> resolveIntentListView = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentListView, "launch using", new ResolvedIntentListener() {
             @Override
             public void onIntentSelected(Object resolveIntent) {
 
+            }
+        });
+    }
+
+    private void categorised() {
+        ResolveCategory pixResolveCategory = new CategorisedIntent().categorized(this, MediaIntents.newSelectPictureIntent(), "picture", 1);
+        List<ResolveIntent> merge = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        ResolveCategory mergeResolveCategory = new CategorisedIntent().categorized(merge, "Geo and Media", 2);
+        List<ResolveCategory> resolveCategories = new ArrayList<>();
+        resolveCategories.add(pixResolveCategory);
+        resolveCategories.add(mergeResolveCategory);
+        LaunchIntent.categorised(this, resolveCategories, "Share With", new ResolvedIntentListener<ResolveIntent>() {
+            @Override
+            public void onIntentSelected(ResolveIntent resolveIntent) {
+                startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
             }
         });
     }

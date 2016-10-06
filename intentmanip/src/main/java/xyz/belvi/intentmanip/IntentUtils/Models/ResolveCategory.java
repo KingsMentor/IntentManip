@@ -9,13 +9,13 @@ import java.util.List;
 public class ResolveCategory {
     List<ResolveIntent> resolveIntents;
     String categoryName;
-    int orderId,grpId;
+    int orderId;
 
-    public ResolveCategory(List<ResolveIntent> resolveIntents, String categoryName, int orderId,int grpId) {
+    public ResolveCategory(List<ResolveIntent> resolveIntents, String categoryName, int orderId) {
         this.resolveIntents = resolveIntents;
         this.categoryName = categoryName;
         this.orderId = orderId;
-        this.grpId = grpId;
+
     }
 
     public List<ResolveIntent> getResolveIntents() {
@@ -23,13 +23,6 @@ public class ResolveCategory {
     }
 
 
-    public int getGrpId() {
-        return this.grpId;
-    }
-
-    public void setGrpId(int grpId) {
-        this.grpId = grpId;
-    }
 
     public void setResolveIntents(List<ResolveIntent> resolveIntents) {
         this.resolveIntents = resolveIntents;
