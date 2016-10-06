@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">IntentManip</string>
     <string name="sample">Sample</string>
+
+    <string-array name="manip_list">
+        <item>Merge Sample</item>
+        <item>Account Intent Sample</item>
+        <item>Categorised Intent</item>
+        <item>Appending Intent</item>
+        <item>Igonore Intent</item>
+        <item>Lookup Intent</item>
+        <item>Preference Intent</item>
+
+    </string-array>
 </resources>
