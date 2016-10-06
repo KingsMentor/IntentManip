@@ -15,39 +15,45 @@ import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 public class IntentLookUp extends ManipUtils {
 
 
-    public ResolveIntent lookUpByAppName(Context context, Intent intent, String appName) {
+    public static List<ResolveIntent> lookUpByAppName(Context context, Intent intent, String appName) {
+        List<ResolveIntent> resolveIntentList = new ArrayList<>();
         for (ResolveIntent resolveIntent : lookUp(context, intent)) {
             if (getName(context, resolveIntent.getResolveInfo()).equals(appName))
-                return resolveIntent;
+                resolveIntentList.add(resolveIntent);
         }
-        return null;
+        return resolveIntentList;
     }
 
-    public ResolveIntent lookUpByAppName(Context context, List<ResolveIntent> resolveIntents, String appName) {
+    public static void lookUpByAppName(Context context, List<ResolveIntent> resolveIntents, String appName) {
+        List<ResolveIntent> resolveIntentList = new ArrayList<>();
         for (ResolveIntent resolveIntent : resolveIntents) {
             if (getName(context, resolveIntent.getResolveInfo()).equals(appName))
-                return resolveIntent;
+                resolveIntentList.add(resolveIntent);
         }
-        return null;
+        resolveIntents.clear();
+        resolveIntents.addAll(resolveIntentList);
     }
 
-    public ResolveIntent lookUpByPackageName(Context context, Intent intent, String packageName) {
+    public static List<ResolveIntent> lookUpByPackageName(Context context, Intent intent, String packageName) {
+        List<ResolveIntent> resolveIntentList = new ArrayList<>();
         for (ResolveIntent resolveIntent : lookUp(context, intent)) {
             if (getPackageName(resolveIntent.getResolveInfo()).equals(packageName))
-                return resolveIntent;
+                resolveIntentList.add(resolveIntent);
         }
-        return null;
+        return resolveIntentList;
     }
 
-    public ResolveIntent lookUpByPackageName(List<ResolveIntent> resolveIntents, String packageName) {
+    public static void lookUpByPackageName(List<ResolveIntent> resolveIntents, String packageName) {
+        List<ResolveIntent> resolveIntentList = new ArrayList<>();
         for (ResolveIntent resolveIntent : resolveIntents) {
             if (getPackageName(resolveIntent.getResolveInfo()).equals(packageName))
-                return resolveIntent;
+                resolveIntentList.add(resolveIntent);
         }
-        return null;
+        resolveIntentList.clear();
+        resolveIntents.addAll(resolveIntentList);
     }
 
-    public List<ResolveIntent> lookUpAppsByAppName(Context context, Intent intent, String appName) {
+    public static List<ResolveIntent> lookUpAppsByAppName(Context context, Intent intent, String appName) {
         List<ResolveIntent> resolveIntents = new ArrayList<>();
         for (ResolveIntent resolveIntent : lookUp(context, intent)) {
             if (getName(context, resolveIntent.getResolveInfo()).contains(appName))
@@ -56,16 +62,18 @@ public class IntentLookUp extends ManipUtils {
         return resolveIntents;
     }
 
-    public List<ResolveIntent> lookUpAppsByAppName(Context context, List<ResolveIntent> resolveIntents, String appName) {
+    public static void lookUpAppsByAppName(Context context, List<ResolveIntent> resolveIntents, String appName) {
         List<ResolveIntent> resultResolveIntentList = new ArrayList<>();
         for (ResolveIntent resolveIntent : resolveIntents) {
             if (getName(context, resolveIntent.getResolveInfo()).contains(appName))
                 resultResolveIntentList.add(resolveIntent);
         }
-        return resultResolveIntentList;
+        resolveIntents.clear();
+        resolveIntents.addAll(resultResolveIntentList);
     }
 
-    public List<ResolveIntent> lookUpAppsByPackageName(Context context, Intent intent, String packageName) {
+
+    public static List<ResolveIntent> lookUpAppsByPackageName(Context context, Intent intent, String packageName) {
         List<ResolveIntent> resolveIntents = new ArrayList<>();
         for (ResolveIntent resolveIntent : lookUp(context, intent)) {
             if (getPackageName(resolveIntent.getResolveInfo()).contains(packageName))
@@ -74,16 +82,17 @@ public class IntentLookUp extends ManipUtils {
         return resolveIntents;
     }
 
-    public List<ResolveIntent> lookUpAppsByPackageName(List<ResolveIntent> resolveIntents, String packageName) {
+    public static void lookUpAppsByPackageName(List<ResolveIntent> resolveIntents, String packageName) {
         List<ResolveIntent> resultResolveIntentList = new ArrayList<>();
         for (ResolveIntent resolveIntent : resolveIntents) {
             if (getPackageName(resolveIntent.getResolveInfo()).contains(packageName))
                 resultResolveIntentList.add(resolveIntent);
         }
-        return resultResolveIntentList;
+        resolveIntents.clear();
+        resolveIntents.addAll(resultResolveIntentList);
     }
 
-    public List<ResolveIntent> lookUpAppsByRegEx(Context context, Intent intent, String regEx) {
+    public static List<ResolveIntent> lookUpAppsByRegEx(Context context, Intent intent, String regEx) {
         List<ResolveIntent> resolveIntents = new ArrayList<>();
         for (ResolveIntent resolveIntent : lookUp(context, intent)) {
             if (getPackageName(resolveIntent.getResolveInfo()).matches(regEx))
@@ -92,13 +101,14 @@ public class IntentLookUp extends ManipUtils {
         return resolveIntents;
     }
 
-    public List<ResolveIntent> lookUpAppsByRegEx(List<ResolveIntent> resolveIntents, String regEx) {
+    public static void lookUpAppsByRegEx(List<ResolveIntent> resolveIntents, String regEx) {
         List<ResolveIntent> resultResolveIntentList = new ArrayList<>();
         for (ResolveIntent resolveIntent : resolveIntents) {
             if (getPackageName(resolveIntent.getResolveInfo()).matches(regEx))
                 resultResolveIntentList.add(resolveIntent);
         }
-        return resultResolveIntentList;
+        resolveIntents.clear();
+        resolveIntents.addAll(resultResolveIntentList);
     }
 
 }

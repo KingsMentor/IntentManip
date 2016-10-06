@@ -19,6 +19,7 @@ import xyz.belvi.intentmanip.IntentUtils.CategorisedIntent;
 import xyz.belvi.intentmanip.IntentUtils.IntentAppend;
 import xyz.belvi.intentmanip.IntentUtils.IntentCallBack.ResolvedIntentListener;
 import xyz.belvi.intentmanip.IntentUtils.IntentIgnore;
+import xyz.belvi.intentmanip.IntentUtils.IntentLookUp;
 import xyz.belvi.intentmanip.IntentUtils.ManipUtils;
 import xyz.belvi.intentmanip.IntentUtils.MergeIntent;
 import xyz.belvi.intentmanip.IntentUtils.Models.PreparedIntent;
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case IGNORE:
                         ignore();
+                        break;
+                    case LOOKUP:
+                        lookUp();
 
                 }
             }
@@ -68,6 +72,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void runMerge() {
         List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
+            @Override
+            public void onIntentSelected(Object resolveIntent) {
+
+            }
+        });
+    }
+
+
+    private void lookUp() {
+        List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        IntentLookUp.lookUpAppsByAppName(this, resolveIntentList, "Maps");
         LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
             @Override
             public void onIntentSelected(Object resolveIntent) {
