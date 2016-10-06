@@ -28,11 +28,11 @@ public class ManipUtils {
         return resolveIntents;
     }
 
-    public String getName(Context context, ResolveInfo resolveInfo) {
+    public static String getName(Context context, ResolveInfo resolveInfo) {
         return String.valueOf(resolveInfo.loadLabel(context.getPackageManager()));
     }
 
-    protected String getPackageName(ResolveInfo resolveInfo) {
+    protected static String getPackageName(ResolveInfo resolveInfo) {
         return String.valueOf(resolveInfo.activityInfo.packageName);
     }
 

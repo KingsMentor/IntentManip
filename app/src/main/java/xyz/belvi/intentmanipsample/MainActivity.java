@@ -12,11 +12,13 @@ import com.marvinlabs.intents.GeoIntents;
 import com.marvinlabs.intents.MediaIntents;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import xyz.belvi.intentmanip.IntentUtils.CategorisedIntent;
 import xyz.belvi.intentmanip.IntentUtils.IntentAppend;
 import xyz.belvi.intentmanip.IntentUtils.IntentCallBack.ResolvedIntentListener;
+import xyz.belvi.intentmanip.IntentUtils.IntentIgnore;
 import xyz.belvi.intentmanip.IntentUtils.ManipUtils;
 import xyz.belvi.intentmanip.IntentUtils.MergeIntent;
 import xyz.belvi.intentmanip.IntentUtils.Models.PreparedIntent;
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
                     case APPENDING:
                         appendIntent();
                         break;
+                    case IGNORE:
+                        ignore();
+
                 }
             }
         });
@@ -63,6 +68,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void runMerge() {
         List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
+            @Override
+            public void onIntentSelected(Object resolveIntent) {
+
+            }
+        });
+    }
+
+    private void ignore() {
+        List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        IntentIgnore.IgnoreIntentWithName(this, resolveIntentList, new ArrayList<String>(Arrays.asList(new String[]{"Maps"})));
         LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
             @Override
             public void onIntentSelected(Object resolveIntent) {
