@@ -1,4 +1,4 @@
-package xyz.belvi.intentmanipsample.IntentUtils.IntentCallBack;
+package xyz.belvi.intentmanip.IntentUtils.IntentCallBack;
 
 /**
  * Created by zone2 on 10/3/16.

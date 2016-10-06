@@ -1,4 +1,4 @@
-package xyz.belvi.intentmanipsample.IntentUtils.Models;
+package xyz.belvi.intentmanip.IntentUtils.Models;
 
 import java.util.List;
 

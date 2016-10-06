@@ -12,16 +12,16 @@ import com.marvinlabs.intents.MediaIntents;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.belvi.intentmanipsample.IntentUtils.AccountIntent;
-import xyz.belvi.intentmanipsample.IntentUtils.CategorisedIntent;
-import xyz.belvi.intentmanipsample.IntentUtils.IntentAppend;
-import xyz.belvi.intentmanipsample.IntentUtils.IntentCallBack.ResolvedIntentListener;
-import xyz.belvi.intentmanipsample.IntentUtils.MergeIntent;
-import xyz.belvi.intentmanipsample.IntentUtils.Models.PreparedIntent;
-import xyz.belvi.intentmanipsample.IntentUtils.Models.ResolveCategory;
-import xyz.belvi.intentmanipsample.IntentUtils.Models.ResolveIntent;
+import xyz.belvi.intentmanip.IntentUtils.AccountIntent;
+import xyz.belvi.intentmanip.IntentUtils.CategorisedIntent;
+import xyz.belvi.intentmanip.IntentUtils.IntentAppend;
+import xyz.belvi.intentmanip.IntentUtils.IntentCallBack.ResolvedIntentListener;
+import xyz.belvi.intentmanip.IntentUtils.MergeIntent;
+import xyz.belvi.intentmanip.IntentUtils.Models.PreparedIntent;
+import xyz.belvi.intentmanip.IntentUtils.Models.ResolveCategory;
+import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
+import xyz.belvi.intentmanip.LaunchIntent;
 
-import static xyz.belvi.intentmanipsample.R.id.merge;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-        findViewById(merge).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.merge).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MergeIntent mergeIntent = new MergeIntent();
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                new PreferenceIntent().preferredIntent(MainActivity.this, PreferenceType.CUSTOM_APPNAME, new ArrayList<String>(Arrays.asList(new String[]{"Photos", "Images"})),
 //                        resolveIntents);
-                new IntentAppend().appendCustomIntent(MainActivity.this, resolveIntents, new PreparedIntent(new Intent(MainActivity.this, MainActivity.class), R.string.sample, R.mipmap.ic_launcher));
+                new IntentAppend().appendCustomIntent(MainActivity.this, resolveIntents, new PreparedIntent(new Intent(MainActivity.this, MainActivity.class), R.string.sample,R.mipmap.ic_launcher));
 //                LaunchIntent.withButtomSheetGrid(MainActivity.this, resolveIntents,
 //                        "using", new ResolvedIntentListener<ResolveIntent>() {
 //                            @Override

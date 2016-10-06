@@ -1,4 +1,4 @@
-package xyz.belvi.intentmanipsample.IntentUtils.Models;
+package xyz.belvi.intentmanip.IntentUtils.Models;
 
 /**
  * Created by zone2 on 10/3/16.

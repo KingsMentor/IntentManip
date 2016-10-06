@@ -1,4 +1,4 @@
-package xyz.belvi.intentmanipsample.IntentUtils;
+package xyz.belvi.intentmanip.IntentUtils;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,8 +12,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import xyz.belvi.intentmanipsample.IntentUtils.Models.PreferenceType;
-import xyz.belvi.intentmanipsample.IntentUtils.Models.ResolveIntent;
+import xyz.belvi.intentmanip.IntentUtils.Models.PreferenceType;
+import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 
 /**
  * Created by zone2 on 10/3/16.

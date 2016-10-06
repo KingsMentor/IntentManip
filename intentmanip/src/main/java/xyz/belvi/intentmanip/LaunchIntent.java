@@ -1,4 +1,4 @@
-package xyz.belvi.intentmanipsample;
+package xyz.belvi.intentmanip;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -10,11 +10,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import xyz.belvi.intentmanipsample.IntentUtils.AccountIntent;
-import xyz.belvi.intentmanipsample.IntentUtils.IntentCallBack.ResolvedIntentListener;
-import xyz.belvi.intentmanipsample.IntentUtils.ManipUtils;
-import xyz.belvi.intentmanipsample.IntentUtils.Models.ResolveCategory;
-import xyz.belvi.intentmanipsample.IntentUtils.Models.ResolveIntent;
+import xyz.belvi.intentmanip.IntentUtils.AccountIntent;
+import xyz.belvi.intentmanip.IntentUtils.IntentCallBack.ResolvedIntentListener;
+import xyz.belvi.intentmanip.IntentUtils.ManipUtils;
+import xyz.belvi.intentmanip.IntentUtils.Models.ResolveCategory;
+import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 
 /**
  * Created by zone2 on 10/2/16.

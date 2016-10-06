@@ -1,4 +1,4 @@
-package xyz.belvi.intentmanipsample;
+package xyz.belvi.intentmanip;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

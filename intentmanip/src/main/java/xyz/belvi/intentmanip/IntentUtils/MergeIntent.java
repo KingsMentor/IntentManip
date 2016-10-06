@@ -1,4 +1,4 @@
-package xyz.belvi.intentmanipsample.IntentUtils;
+package xyz.belvi.intentmanip.IntentUtils;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.content.pm.ResolveInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.belvi.intentmanipsample.IntentUtils.Models.ResolveIntent;
+import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 
 /**
  * Created by zone2 on 10/2/16.

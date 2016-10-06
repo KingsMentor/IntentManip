@@ -1,4 +1,4 @@
-package xyz.belvi.intentmanipsample.IntentUtils;
+package xyz.belvi.intentmanip.IntentUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
