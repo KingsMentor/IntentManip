@@ -22,7 +22,7 @@ public class TargetIntent extends IntentLookUp {
         return lookUp(context, new Intent().setAction("android.intent.action.MAIN").addCategory(Intent.CATEGORY_LAUNCHER));
     }
 
-    public static ResolveIntent getTargetByAppName(Context context, List<ResolveIntent> resolveIntents, String appName) {
+    public static ResolveIntent targetByAppName(Context context, List<ResolveIntent> resolveIntents, String appName) {
         lookUpAppsByAppName(context, resolveIntents, appName);
         if (resolveIntents.size() > 0) {
             return resolveIntents.get(0);
@@ -30,7 +30,7 @@ public class TargetIntent extends IntentLookUp {
         return null;
     }
 
-    public static ResolveIntent getTargetByPackageName(Context context, List<ResolveIntent> resolveIntents, String packageName) {
+    public static ResolveIntent targetByPackageName(Context context, List<ResolveIntent> resolveIntents, String packageName) {
         lookUpAppsByPackageName(resolveIntents, packageName);
         if (resolveIntents.size() > 0) {
             return resolveIntents.get(0);

@@ -80,8 +80,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void target() {
-        List<ResolveIntent> resolveIntentList = TargetIntent.getAllApps(this);
+    private void runMerge() {
+        List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
+            @Override
+            public void onIntentSelected(Object resolveIntent) {
+
+            }
+        });
+    }
+
+
+    private void categorised() {
+        ResolveCategory pixResolveCategory = CategorisedIntent.categorized(this, MediaIntents.newSelectPictureIntent(), "picture", 1);
+        List<ResolveIntent> merge = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        ResolveCategory mergeResolveCategory = CategorisedIntent.categorized(merge, "Geo and Media", 2);
+        List<ResolveCategory> resolveCategories = new ArrayList<>();
+        resolveCategories.add(pixResolveCategory);
+        resolveCategories.add(mergeResolveCategory);
+        LaunchIntent.categorised(this, resolveCategories, "Share With", new ResolvedIntentListener<ResolveIntent>() {
+            @Override
+            public void onIntentSelected(ResolveIntent resolveIntent) {
+                startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
+            }
+        });
+    }
+
+    private void appendIntent() {
+        PreparedIntent preparedIntent = new PreparedIntent(new Intent(this, Sample.class), R.string.sample, R.mipmap.ic_launcher);
+        List<ResolveIntent> resolveIntentList = IntentAppend.appendCustomIntent(this, MediaIntents.newSelectPictureIntent(), preparedIntent);
         LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener<ResolveIntent>() {
             @Override
             public void onIntentSelected(ResolveIntent resolveIntent) {
@@ -91,8 +118,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void runMerge() {
+    private void ignore() {
         List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        IntentIgnore.IgnoreIntentWithName(this, resolveIntentList, new ArrayList<String>(Arrays.asList(new String[]{"Maps"})));
         LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
             @Override
             public void onIntentSelected(Object resolveIntent) {
@@ -113,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     private void arrangeInPreference() {
         List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
         PreferenceIntent.preferredIntent(this, PreferenceType.CUSTOM_APPNAME, new ArrayList<String>(Arrays.asList(new String[]{"Maps"})), resolveIntentList);
@@ -124,41 +153,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void ignore() {
+
+    private void target() {
         List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
-        IntentIgnore.IgnoreIntentWithName(this, resolveIntentList, new ArrayList<String>(Arrays.asList(new String[]{"Maps"})));
-        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
-            @Override
-            public void onIntentSelected(Object resolveIntent) {
+        ResolveIntent resolveIntent = TargetIntent.targetByAppName(this, resolveIntentList, "Photo");
+        if (resolveIntent != null) {
+            startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
+        }
 
-            }
-        });
-    }
-
-    private void appendIntent() {
-        PreparedIntent preparedIntent = new PreparedIntent(new Intent(this, Sample.class), R.string.sample, R.mipmap.ic_launcher);
-        List<ResolveIntent> resolveIntentList = IntentAppend.appendCustomIntent(this, MediaIntents.newSelectPictureIntent(), preparedIntent);
-        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener<ResolveIntent>() {
-            @Override
-            public void onIntentSelected(ResolveIntent resolveIntent) {
-                startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
-            }
-        });
     }
 
 
-    private void categorised() {
-        ResolveCategory pixResolveCategory = CategorisedIntent.categorized(this, MediaIntents.newSelectPictureIntent(), "picture", 1);
-        List<ResolveIntent> merge = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
-        ResolveCategory mergeResolveCategory = CategorisedIntent.categorized(merge, "Geo and Media", 2);
-        List<ResolveCategory> resolveCategories = new ArrayList<>();
-        resolveCategories.add(pixResolveCategory);
-        resolveCategories.add(mergeResolveCategory);
-        LaunchIntent.categorised(this, resolveCategories, "Share With", new ResolvedIntentListener<ResolveIntent>() {
-            @Override
-            public void onIntentSelected(ResolveIntent resolveIntent) {
-                startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
-            }
-        });
-    }
 }
