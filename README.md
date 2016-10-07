@@ -8,16 +8,20 @@ Gives more controls over implicit intents creation and they way it is presented 
 
 ### step 1
 Add it in your root build.gradle at the end of repositories:
+```
 repositories {
 			...
 			maven { url "https://jitpack.io" }
 		}
+```
 
 ### step 2
 Add the dependency
+```
 dependencies {
 	        compile 'com.github.KingsMentor:IntentManip:v1.0'
 	}
+```
 
 ## Credits
 [android-intents](https://github.com/marvinlabs/android-intents) and 
