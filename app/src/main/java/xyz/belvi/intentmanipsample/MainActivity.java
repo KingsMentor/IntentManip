@@ -27,6 +27,7 @@ import xyz.belvi.intentmanip.IntentUtils.Models.PreparedIntent;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveCategory;
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
 import xyz.belvi.intentmanip.IntentUtils.PreferenceIntent;
+import xyz.belvi.intentmanip.IntentUtils.TargetIntent;
 import xyz.belvi.intentmanip.LaunchIntent;
 
 import static xyz.belvi.intentmanip.IntentUtils.MergeIntent.mergeIntents;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private final int IGNORE = 3;
     private final int LOOKUP = 4;
     private final int PREF = 5;
+    private final int TARGET = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +70,22 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case PREF:
                         arrangeInPreference();
+                        break;
+                    case TARGET:
+                        target();
 
                 }
+            }
+        });
+    }
+
+
+    private void target() {
+        List<ResolveIntent> resolveIntentList = TargetIntent.getAllApps(this);
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener<ResolveIntent>() {
+            @Override
+            public void onIntentSelected(ResolveIntent resolveIntent) {
+                startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
             }
         });
     }

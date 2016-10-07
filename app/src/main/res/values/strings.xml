@@ -9,6 +9,7 @@
         <item>Igonore Intent</item>
         <item>Lookup Intent</item>
         <item>Preference Intent</item>
+        <item>Target Intent</item>
 
     </string-array>
     <string name="title_activity_sample">Sign in</string>
