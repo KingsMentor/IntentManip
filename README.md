@@ -30,7 +30,7 @@ There are a couple of operations you can do with the library. It includes:
 1. Merging
 2. Categorizing Intent
 3. Appending Intent
-4. Ignorint Component 
+4. Ignoring Component 
 5. Lookup Component
 6. Target Component
 7. Component Preference
@@ -90,6 +90,45 @@ PreparedIntent preparedIntent = new PreparedIntent(new Intent(this, Sample.class
         });
 ```
 #### Ignore Components
+to ignore or skip or remove components that matches a defined naming pattern from the list
+
+```java
+List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        IntentIgnore.IgnoreIntentWithName(this, resolveIntentList, new ArrayList<String>(Arrays.asList(new String[]{"Maps"})));
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
+            @Override
+            public void onIntentSelected(Object resolveIntent) {
+
+            }
+        });
+```
+
+#### LookingUp Components
+to find and return components that matches a defined naming pattern 
+```java
+List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        IntentLookUp.lookUpAppsByAppName(this, resolveIntentList, "Maps");
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
+            @Override
+            public void onIntentSelected(Object resolveIntent) {
+
+            }
+        });
+```
+
+#### Target a Component
+to target a particular component from a list of component. 
+returns `null` if not found or return the first item if more than 1 item is found.
+```java
+List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        ResolveIntent resolveIntent = TargetIntent.targetByAppName(this, resolveIntentList, "Photo");
+        if (resolveIntent != null) {
+            startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
+        }
+```
+
+#### Component Preference
+
 ## Credits
 [android-intents](https://github.com/marvinlabs/android-intents) and 
 [Bottom Sheet](https://github.com/soarcn/BottomSheet) upon which this library is based.
