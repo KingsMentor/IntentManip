@@ -128,6 +128,14 @@ List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelec
 ```
 
 #### Component Preference
+This involves using a `PreferenceType` which could be
+
+* ASCENDING - to arange components in an alphabetical order by appname
+* DECENDING - to arange components in a decending alphabetical order by app name
+* CUSTOM_PACKAGENAME - arrange the list, placing components with supplied package names aboved others.
+* CUSTOM_APPNAME - arrange the list, placing components with supplied app names aboved others.
+* CUSTOM_REGEX_APPNAME - arrange the list, placing components with app names matching regEx supplied aboved others.
+* CUSTOM_REGEX_PACKAGE_NAME - arrange the list, placing components with package names matching regEx supplied aboved others.
 
 ## Credits
 [android-intents](https://github.com/marvinlabs/android-intents) and 
