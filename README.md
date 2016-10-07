@@ -137,6 +137,31 @@ This involves using a `PreferenceType` which could be
 * CUSTOM_REGEX_APPNAME - arrange the list, placing components with app names matching regEx supplied aboved others.
 * CUSTOM_REGEX_PACKAGE_NAME - arrange the list, placing components with package names matching regEx supplied aboved others.
 
+Also **note** that CUSTOM Preference type sort the component in same manage the list was provided.
+
+```java
+List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        PreferenceIntent.preferredIntent(this, PreferenceType.CUSTOM_APPNAME, new ArrayList<String>(Arrays.asList(new String[]{"Maps","Photo"})), resolveIntentList);
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
+            @Override
+            public void onIntentSelected(Object resolveIntent) {
+
+            }
+        });
+```
+
+The snippet above will sort the merge component of `MediaIntents` and `GeoIntents` but would place Maps and Photo above the entire list. 
+Maps will be above Photos because if was provided that way. To bring Photos above Maps, it has to be this way:
+
+```java
+PreferenceIntent.preferredIntent(this, PreferenceType.CUSTOM_APPNAME, new ArrayList<String>(Arrays.asList(new String[]{"Photo","Maps"})), resolveIntentList);
+```
+
+## Contributing
+Contributions are welcome.
+
+
+
 ## Credits
 [android-intents](https://github.com/marvinlabs/android-intents) and 
 [Bottom Sheet](https://github.com/soarcn/BottomSheet) upon which this library is based.
