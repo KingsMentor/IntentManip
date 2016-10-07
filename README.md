@@ -23,7 +23,7 @@ dependencies {
 	        compile 'com.github.KingsMentor:IntentManip:v1.0'
 	}
 ```
-#Usage :
+# Usage :
 There are a couple of operations you can do with the library. It includes:
 
 1. Merging
@@ -33,6 +33,56 @@ There are a couple of operations you can do with the library. It includes:
 5. Lookup Component
 6. Target Component
 7. Component Preference
+
+# Snippets :
+
+#### Merging - merging components of different intents
+```java
+LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener<ResolveIntent>() {
+            @Override
+            public void onIntentSelected(ResolveIntent resolveIntent) {
+
+            }
+        });
+```
+##### Note
+
+*launching* *intent* *from* *resolveIntent*
+
+```java 
+startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
+```
+
+implement `ResolvedIntentListener`  to get the item the user selected from the list
+
+#### Categorising Components
+
+for presenting merged intents in a categorised format
+
+```java
+ ResolveCategory pixResolveCategory = CategorisedIntent.categorized(this, MediaIntents.newSelectPictureIntent(), "picture", 1);
+        List<ResolveIntent> merge = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
+        ResolveCategory mergeResolveCategory = CategorisedIntent.categorized(merge, "Geo and Media", 2);
+        List<ResolveCategory> resolveCategories = new ArrayList<>();
+        resolveCategories.add(pixResolveCategory);
+        resolveCategories.add(mergeResolveCategory);
+        LaunchIntent.categorised(this, resolveCategories, "Share With", new ResolvedIntentListener<ResolveIntent>() {
+            @Override
+            public void onIntentSelected(ResolveIntent resolveIntent) {
+                startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
+            }
+        });
+	
+```
+
+#### Appending Explicit Intents.
+
+
+
+
+
+
+
 
 ## Credits
 [android-intents](https://github.com/marvinlabs/android-intents) and 
