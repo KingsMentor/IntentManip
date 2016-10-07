@@ -77,14 +77,19 @@ for presenting merged intents in a categorised format
 ```
 
 #### Appending Explicit Intents.
+for adding explicit intent ( probably activities from your project ) to implicit components.
 
-
-
-
-
-
-
-
+```java
+PreparedIntent preparedIntent = new PreparedIntent(new Intent(this, Sample.class), R.string.sample, R.mipmap.ic_launcher);
+        List<ResolveIntent> resolveIntentList = IntentAppend.appendCustomIntent(this, MediaIntents.newSelectPictureIntent(), preparedIntent);
+        LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener<ResolveIntent>() {
+            @Override
+            public void onIntentSelected(ResolveIntent resolveIntent) {
+                startActivity(ManipUtils.getLaunchableIntent(resolveIntent));
+            }
+        });
+```
+#### Ignore Components
 ## Credits
 [android-intents](https://github.com/marvinlabs/android-intents) and 
 [Bottom Sheet](https://github.com/soarcn/BottomSheet) upon which this library is based.
