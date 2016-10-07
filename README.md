@@ -1,6 +1,24 @@
 # IntentManip
 Gives more controls over implicit intents creation and they way it is presented to users.
 
+[![](https://jitpack.io/v/KingsMentor/IntentManip.svg)](https://jitpack.io/#KingsMentor/IntentManip)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+
+# Adding to your project.
+
+### step 1
+Add it in your root build.gradle at the end of repositories:
+repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+
+### step 2
+Add the dependency
+dependencies {
+	        compile 'com.github.KingsMentor:IntentManip:v1.0'
+	}
+
 ## Credits
 [android-intents](https://github.com/marvinlabs/android-intents) and 
 [Bottom Sheet](https://github.com/soarcn/BottomSheet) upon which this library is based.
