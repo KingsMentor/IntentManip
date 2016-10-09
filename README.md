@@ -39,6 +39,7 @@ There are a couple of operations you can do with the library. It includes:
 
 #### Merging - merging components of different intents
 ```java
+List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
 LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener<ResolveIntent>() {
             @Override
             public void onIntentSelected(ResolveIntent resolveIntent) {
