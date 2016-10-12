@@ -3,6 +3,7 @@ Gives more controls over implicit intents creation and the way it is presented t
 
 [![](https://jitpack.io/v/KingsMentor/IntentManip.svg)](https://jitpack.io/#KingsMentor/IntentManip)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-IntentManip-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/4490)
 
 ![Lib Sample](https://github.com/KingsMentor/IntentManip/blob/master/sample.gif)
 
