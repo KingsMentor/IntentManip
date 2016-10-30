@@ -3,6 +3,8 @@ package xyz.belvi.intentmanip.IntentUtils;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import xyz.belvi.intentmanip.IntentUtils.Models.ResolveIntent;
@@ -23,7 +25,7 @@ public class TargetIntent extends IntentLookUp {
     }
 
     public static ResolveIntent targetByAppName(Context context, List<ResolveIntent> resolveIntents, String appName) {
-        lookUpAppsByAppName(context, resolveIntents, appName);
+        lookUpAppsByAppName(context, resolveIntents, new ArrayList<String>(Arrays.asList(appName)));
         if (resolveIntents.size() > 0) {
             return resolveIntents.get(0);
         }
@@ -31,7 +33,7 @@ public class TargetIntent extends IntentLookUp {
     }
 
     public static ResolveIntent targetByPackageName(Context context, List<ResolveIntent> resolveIntents, String packageName) {
-        lookUpAppsByPackageName(resolveIntents, packageName);
+        lookUpAppsByPackageName(resolveIntents, new ArrayList<String>(Arrays.asList(packageName)));
         if (resolveIntents.size() > 0) {
             return resolveIntents.get(0);
         }
