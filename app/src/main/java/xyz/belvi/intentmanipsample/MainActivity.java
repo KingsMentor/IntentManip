@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void  categorised() {
+    private void categorised() {
         ResolveCategory pixResolveCategory = CategorisedIntent.categorized(this, MediaIntents.newSelectPictureIntent(), "picture", 1);
         List<ResolveIntent> merge = new MergeIntent().mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
         ResolveCategory mergeResolveCategory = CategorisedIntent.categorized(merge, "Geo and Media", 2);
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void lookUp() {
         List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
-        IntentLookUp.lookUpAppsByAppName(this, resolveIntentList, "Maps");
+        IntentLookUp.lookUpAppsByAppName(this, resolveIntentList, new ArrayList<String>(Arrays.asList("Maps")));
         LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
             @Override
             public void onIntentSelected(Object resolveIntent) {
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void arrangeInPreference() {
         List<ResolveIntent> resolveIntentList = mergeIntents(this, MediaIntents.newSelectPictureIntent(), GeoIntents.newNavigationIntent(""));
-        PreferenceIntent.preferredIntent(this, PreferenceType.CUSTOM_APPNAME, new ArrayList<String>(Arrays.asList(new String[]{"Maps","Photo"})), resolveIntentList);
+        PreferenceIntent.preferredIntent(this, PreferenceType.CUSTOM_APPNAME, new ArrayList<String>(Arrays.asList(new String[]{"Maps", "Photo"})), resolveIntentList);
         LaunchIntent.withButtomSheetAsList(this, resolveIntentList, "launch using", new ResolvedIntentListener() {
             @Override
             public void onIntentSelected(Object resolveIntent) {
