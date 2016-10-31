@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main__intent_manip_sample);
         ListView listView = (ListView) findViewById(R.id.intent_list);
         listView.setAdapter(ArrayAdapter.createFromResource(this, R.array.manip_list, android.R.layout.simple_list_item_1));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
